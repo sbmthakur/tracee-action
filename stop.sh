@@ -21,7 +21,7 @@ if [ $rc -ne 0 ]; then
     gh auth login --with-token <<<"$token"
     git fetch --all
     git checkout -B 'tracee-profile-update' origin/$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
-    git add tracee.profile
+    git add tracee.profile /tmp/tracee/outfile
     git commit -m 'update tracee.profile'
     git push -f --set-upstream origin tracee-profile-update
     gh pr create --title "Updates to tracee.profile" --body "$(echo $pr_message | base64 -d)"
