@@ -16,12 +16,13 @@ if [ $rc -ne 0 ]; then
   if [ $create_pr = "true" ]; then
     echo "Creating a commit with all changes..."
     cp $workdir/out/tracee.profile .
+    cp /tmp/tracee/outfile .
     git config --global user.email "opensource@aquasec.com"
     git config --global user.name "Tracee Bot"
     gh auth login --with-token <<<"$token"
     git fetch --all
     git checkout -B 'tracee-profile-update' origin/$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
-    git add tracee.profile /tmp/tracee/outfile
+    git add tracee.profile outfile
     git commit -m 'update tracee.profile'
     git push -f --set-upstream origin tracee-profile-update
     gh pr create --title "Updates to tracee.profile" --body "$(echo $pr_message | base64 -d)"
