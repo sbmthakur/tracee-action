@@ -16,6 +16,6 @@ runs:
       docker run -d --name tracee-profiler --rm --privileged \
       -v /proc:/proc -v /boot:/boot -v /lib/modules/:/lib/modules/:ro \
       -v /usr/src:/usr/src:ro -v ${{ inputs.workdir }}:/tmp/tracee simar7/tracee:latest \
-      trace --trace comm=pip --trace follow --capture exec --capture profile
+      trace --trace comm=pip --trace follow --capture exec --capture profile -o out-file:/tmp/tracee/outfile -o err-file:/tmp/tracee/errfile
 
       ${{ github.action_path }}/start.sh ${{ inputs.workdir }}
